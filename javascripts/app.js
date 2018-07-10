@@ -3,11 +3,34 @@
 
 // ======================
 
-var rover = {
+var rover1 = {
   direction  :"E",
-  position:[0,0],
-  travelLog:[ [0,0]]
+  x:5,
+  y:8,
+  travelLog:[]
 } 
+
+var Obstacles = {
+  x:3,
+  y:4,
+}
+var grid = [
+  ["o", null, null, null, null,null, null, null, null ,null],
+  [null, null, null, null, null,null, null, null, null, null],
+  [null, null, null, "o", null,null, null, null, null, null],
+  [null, null, null, null, null,null, null, null, null ,null],
+  [null, null, null, "o", null,null, null, null, null ,null],
+  [null, null, null, null, null,null, null, null, null, null],
+  [null, null, null, null, null,null, null, null, null, null],
+  [null, null, null, null, null,null, null, null, null ,null],
+  [null, null, null, null, null,null, null, null, null, null],
+  [null, null, null, null, null,null, null, null, null, null],
+];
+
+for (j=0; j<grid.length;j++) {
+console.log(grid[j])
+
+}
 
 function turnLeft(rover){
   switch (rover.direction) {
@@ -22,10 +45,11 @@ function turnLeft(rover){
     break;
     case "E":
     rover.direction = "N";
+}
+console.log("turnLeft was called!");
+}
 
-  console.log("turnLeft was called!");
-}
-}
+
 function turnRight(rover){
   switch (rover.direction) {
     case "N":
@@ -45,56 +69,102 @@ function turnRight(rover){
 function moveForward(rover){
   switch (rover.direction) {
     case "N":
-    rover.position[1]= rover.position[1]-1;
+      if ( rover.y-1 >= 0 && rover.y-1 < 10){
+        rover.y= rover.y-1;}
+      else
+     console.log("Rover is off the Grid")
     break;
     case "E":
-    rover.position[0]= rover.position[0]+1;
+     if (rover.x+1 >= 0 && rover.x+1 < 10){
+      rover.x= rover.x+1;}
+      else
+       console.log("Rover is off the Grid")
     break;
     case "S":
-    rover.position[1]= rover.position[1]+1;
+     if (rover.y+1 >= 0 && rover.y+1 < 10){
+      rover.y= rover.y+1;}
+      else
+       console.log("Rover is off the Grid")
     break;
     case "W":
-    rover.position[0]= rover.position[0]-1;
-    break;
-  }
-
-  console.log("moveForward was called")
+     if ( rover.x-1 >= 0 && rover.x-1 < 10){
+      rover.x= rover.x-1;}
+      else
+       console.log("Rover is off the Grid")
+     break;}
+  console.log("moveForward was called");
 }
 
-function commands () {
-  var x = "rffrfflfrff";
-  for (i=0;i< x.length; i++) {
+function moveBackward(rover){
+  switch (rover.direction) {
+    case "N":
+      if ( rover.y+1 >= 0 && rover.y+1 < 10){
+        rover.y= rover.y+1;}
+      else
+     console.log("Rover is off the Grid")
+    break;
+    case "E":
+     if (rover.x-1 >= 0 && rover.x-1 < 10){
+      rover.x= rover.x-1;}
+      else
+       console.log("Rover is off the Grid")
+    break;
+    case "S":
+     if (rover.y-1 >= 0 && rover.y-1 < 10){
+      rover.y= rover.y-1;}
+      else
+       console.log("Rover is off the Grid")
+    break;
+    case "W":
+     if ( rover.x+1 >= 0 && rover.x+1 < 10){
+      rover.x= rover.x+1;}
+      else
+       console.log("Rover is off the Grid")
+     break;
+     }
+  console.log("moveBackward was called");
+    
+}
 
-    switch (x[i]) {
+function commands (lists, rover) {
+  for (i=0;i< lists.length; i++) {
+    if (lists[i]=== "l" || lists[i]==="r"|| lists[i]=== "b"|| lists[i]=== "f") {
+    switch (lists[i]) {
       case "l":
-      turnLeft(rover);
+        console.log(lists[i])
+        turnLeft(rover)
+      break;
       case "r":
-      turnRight(rover);
+        console.log(lists[i])
+        turnRight(rover)
+      break;
       case "f":
-      moveForward(rover);
-      };
-      // rover.travelLog.push(rover.position);
-      
-      }
-    }
-;
-  // }
-;
+        console.log(lists[i]);
+        moveForward(rover);
+        rover.travelLog.push([rover.x,rover.y]);
+        console.log (rover.travelLog[rover.travelLog.length -1]);
+      break;
+      case "b":
+        console.log(lists[i]);
+        moveBackward(rover);
+        rover.travelLog.push([rover.x,rover.y]);
+        console.log (rover.travelLog[rover.travelLog.length -1]);
+      break;
+    };
+    console.log(rover.direction)
+  }
+  else {console.log ("This is invalid")}
+   };
+    // for (j=0;j<rover.travelLog.length;j++)
+    // { 
+    //   console.log (rover.travelLog[j]);
+    // }
+ }
 
- rover = {
-  direction   : "W" ,
-  position: [2,2]
-} 
-commands (rover);
-// console.log (rover.travelLog);
+
+// commands ("rfccbflftzlbf",rover1);
 
 
 
 
-// rover.position.push(1)
-
-// console.log(rover.position)
-rover.travelLog.push(rover.position)
-
-console.log(rover.travelLog)
 
