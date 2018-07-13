@@ -4,16 +4,16 @@
 // ======================
 
 var rover1 = {
-  direction  :"E",
+  direction :"E",
   row:2,
   col:5,
   travelLog:[]
 } 
 
 var rover2 = {
-  direction  :"E",
+  direction :"E",
   row:1,
-  col:4,
+  col:9,
   travelLog:[]
 } 
 
@@ -29,8 +29,7 @@ var grid = [
   [true, true, true, true, true,true, true, true, true ,true],
   [true, true, true, true, true,true, true, true, true ,true],
   [true, true, true, true, true,true, true, true, true ,false],
-  
-  ];
+   ];
 
 // for (j=0; j<grid.length;j++) {
 // console.log(grid[j])
@@ -89,23 +88,22 @@ function moveForward(rover){
     case "N":
       if (gridLimit (rover.row-1,rover.col)){
         if (avoidObstacles (rover.row-1,rover.col)) {
-        rover.row= rover.row-1;
-      rover.travelLog.push([rover.row,rover.col]);
+         rover.row= rover.row-1;
+         rover.travelLog.push([rover.row,rover.col]);
       }
-        else console.log("There is an obstacle")
+        else console.log("There is an obstacle or another rover")
       }
-      else
-     console.log("Rover is off the Grid")
-    break;
+       else
+       console.log("Rover is off the Grid")
+      break;
     case "E":
      if (gridLimit (rover.row,rover.col+1)){
        if(avoidObstacles(rover.row,rover.col+1)){
-      rover.col= rover.col+1;
-      rover.travelLog.push([rover.row,rover.col]);
-      
+         rover.col= rover.col+1;
+         rover.travelLog.push([rover.row,rover.col]); 
     }
-      else console.log("There is an obstacl-------------e")
-    }
+      else console.log("There is an obstacle or another rover")
+     }
       else
        console.log("Rover is off the Grid")
     break;
@@ -115,10 +113,10 @@ function moveForward(rover){
         rover.row= rover.row+1;
         rover.travelLog.push([rover.row,rover.col]);
       }
-        else console.log("There is an obstacle")
+        else console.log("There is an obstacle or another rover")
       }
-      else
-       console.log("Rover is off the Grid")
+         else
+        console.log("Rover is off the Grid")
     break;
     case "W":
      if ( gridLimit (rover.row,rover.col-1)){
@@ -126,9 +124,9 @@ function moveForward(rover){
         rover.col= rover.col-1;
         rover.travelLog.push([rover.row,rover.col]);
       }
-        else console.log("There is an obstacle")
+        else console.log("There is an obstacle or another rover")
       }
-      else
+        else
        console.log("Rover is off the Grid")
      break;}
   console.log("moveForward was called");
@@ -142,10 +140,10 @@ function moveBackward(rover){
           rover.row= rover.row+1;
           rover.travelLog.push([rover.row,rover.col]);
     }
-        else console.log("There is an obstacle")
+        else console.log("There is an obstacle or another rover")
        }
-      else
-     console.log("Rover is off the Grid")
+        else
+         console.log("Rover is off the Grid")
     break;
     case "E":
      if (gridLimit (rover.row,rover.col-1)){
@@ -153,9 +151,9 @@ function moveBackward(rover){
         rover.col= rover.col-1;
         rover.travelLog.push([rover.row,rover.col]);
       }
-       else console.log("There is an obstacle")
+        else console.log("There is an obstacle or another rover")
       }
-      else
+         else
        console.log("Rover is off the Grid")
     break;
     case "S":
@@ -164,21 +162,21 @@ function moveBackward(rover){
         rover.row= rover.row-1;
         rover.travelLog.push([rover.row,rover.col]);
       }
-      else console.log("There is an obstacle")
+        else console.log("There is an obstacle or another rover")
       }
-      else
-       console.log("Rover is off the Grid")
+        else
+         console.log("Rover is off the Grid")
     break;
     case "W":
      if ( gridLimit (rover.row,rover.col+1)){
       if (avoidObstacles (rover.row,rover.col+1)) {
         rover.col= rover.col+1;
-         rover.travelLog.push([rover.row,rover.col]);
+        rover.travelLog.push([rover.row,rover.col]);
       }
-        else console.log("There is an obstacle")
+        else console.log("There is an obstacle or another rover")
       }
-      else
-       console.log("Rover is off the Grid")
+        else
+        console.log("Rover is off the Grid")
      break;
      }
   console.log("moveBackward was called");
@@ -186,30 +184,29 @@ function moveBackward(rover){
 }
 
 function commands (lists, rover) {
-  for (i=0;i< lists.length; i++) {
-    if (lists[i]=== "l" || lists[i]==="r"|| lists[i]=== "b"|| lists[i]=== "f") {
-    switch (lists[i]) {
-      case "l":
+  var roverCurrentPosition= rover.travelLog[rover.travelLog.length -1];
+  var roverPreviousPosition= rover.travelLog[rover.travelLog.length-2];
+    for (i=0;i< lists.length; i++) {
+     if (lists[i]=== "l" || lists[i]==="r"|| lists[i]=== "b"|| lists[i]=== "f") {
+      switch (lists[i]) {
+       case "l":
         console.log(lists[i])
         turnLeft(rover)
-      break;
+        break;
       case "r":
         console.log(lists[i])
         turnRight(rover)
-      break;
+       break;
       case "f":
-        console.log(lists[i]);
-        moveForward(rover);
-        // rover.travelLog.push([rover.row,rover.col]);
-        var roverCurrentPosition= rover.travelLog[rover.travelLog.length -1];
-        var roverPreviousPosition= rover.travelLog[rover.travelLog.length-2];
+         console.log(lists[i]);
+         moveForward(rover);
         if (roverCurrentPosition !== undefined) {
-        console.log ("currenr position: "+ roverCurrentPosition);
-        grid[roverCurrentPosition[0]][roverCurrentPosition[1]]=false ; }
-        // console.log("Value of current position : "+ grid[roverCurrentPosition[0]][roverCurrentPosition[1]]);
+         console.log ("currenr position: "+ roverCurrentPosition);
+         grid[roverCurrentPosition[0]][roverCurrentPosition[1]]=false ; }
+         // console.log("Value of current position : "+ grid[roverCurrentPosition[0]][roverCurrentPosition[1]]);
         if (roverPreviousPosition !== undefined)
-      //  { console.log ("previous position: "+ roverPreviousPosition);
-        grid[roverPreviousPosition[0]][roverPreviousPosition[1]]=true ; 
+         //  { console.log ("previous position: "+ roverPreviousPosition);
+         grid[roverPreviousPosition[0]][roverPreviousPosition[1]]=true ; 
         // console.log("Value of previous position : "+ grid[roverPreviousPosition[0]][roverPreviousPosition[1]]);}
 
       break;
@@ -218,9 +215,9 @@ function commands (lists, rover) {
         moveBackward(rover);
         console.log (rover.travelLog[rover.travelLog.length -1]);
         if (roverCurrentPosition !== undefined) {
-        grid[roverCurrentPosition[0]][roverCurrentPosition[1]]=false ; }
+         grid[roverCurrentPosition[0]][roverCurrentPosition[1]]=false ; }
         if (roverPreviousPosition !== undefined)
-        grid[roverPreviousPosition[0]][roverPreviousPosition[1]]=true ; 
+         grid[roverPreviousPosition[0]][roverPreviousPosition[1]]=true ; 
       break;
     };
     console.log("Rover is now facing "+rover.direction)
@@ -235,10 +232,8 @@ function commands (lists, rover) {
 
 // console.log(grid[rover1.row][rover1.col])
 
-
-    commands ("frfccbflftzlbf",rover2);
-    console.log(grid[2][6])
     commands ("frfccbflftzlbf",rover1);
+    // commands ("frfccbflftzlbf",rover1);
 
  
 
