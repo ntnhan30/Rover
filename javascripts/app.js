@@ -62,8 +62,6 @@ function turnLeft(rover){
 }
 console.log("turnLeft was called!");
 }
-
-
 function turnRight(rover){
   switch (rover.direction) {
     case "N":
@@ -79,7 +77,6 @@ function turnRight(rover){
     rover.direction = "N";}
   console.log("turnRight was called!");
 }
-
 function moveForward(rover){
   switch (rover.direction) {
     case "N":
@@ -181,10 +178,10 @@ function moveBackward(rover){
 }
 
 function commands (lists, rover) {
+  // Pushing initial position of the travelog. 
   rover.travelLog.push([rover.row,rover.col]);
-  
     for (i=0;i< lists.length; i++) {
-     
+      // checking if it is correctt input
      if (lists[i]=== "l" || lists[i]==="r"|| lists[i]=== "b"|| lists[i]=== "f") {
       switch (lists[i]) {
        case "l":
@@ -201,11 +198,13 @@ function commands (lists, rover) {
         var roverPreviousPosition= rover.travelLog[rover.travelLog.length-2];
         var roverCurrentPosition= rover.travelLog[rover.travelLog.length -1];
         console.log ( "Rover current position: "+roverCurrentPosition);
+        // Rover occupy the spot
         grid[roverCurrentPosition[0]][roverCurrentPosition[1]]=false ; 
         // console.log("Value of current position : "+ grid[roverCurrentPosition[0]][roverCurrentPosition[1]]);
         if (roverPreviousPosition !== undefined)
           { 
             // console.log ("previous position: "+ roverPreviousPosition);
+            //  Rove left the spot
          grid[roverPreviousPosition[0]][roverPreviousPosition[1]]=true ; 
         // console.log("Value of previous position : "+ grid[roverPreviousPosition[0]][roverPreviousPosition[1]]);
       }
@@ -230,8 +229,6 @@ function commands (lists, rover) {
       console.log (rover.travelLog[j]);
     }
  }
-
-// console.log(grid[rover1.row][rover1.col])
 
     commands ("frfccbflftzlbf",rover2);
     
